@@ -1,0 +1,11 @@
+.context_1_register{
+
+  border : 2px solid red;
+}
+
+.context_1_list{
+
+  border : 2px solid blue;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
