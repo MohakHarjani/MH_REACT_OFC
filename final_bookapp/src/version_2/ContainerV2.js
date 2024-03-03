@@ -24,6 +24,10 @@ function ContainerV2()
             <BookContext.Provider value = { {book, bookList, setBook, setBookList} }>
 
                 <RegisterBook/>
+
+                <hr/>
+                <br/>
+
                 <ListBook/>
 
             </BookContext.Provider>

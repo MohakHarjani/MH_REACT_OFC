@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
 import '../stylesheets/ListBook.css'
 
 
@@ -19,6 +20,10 @@ export default function ListBook() {
             let books = response.data;
             setBookList(books);
             
+        }).catch((error)=>{
+
+           alert("Cannot connect to server..." + error.message)
+
         });
     }, [])
     //==================================================================================================
@@ -26,8 +31,10 @@ export default function ListBook() {
     {
         let delResponse = await bookService.deleteBook(bookId)
         let getResponse = await bookService.getAllBooks()
+        
         let books = getResponse.data;
         setBookList(books);
+        alert("Book with id : " + bookId + " will be deleted ...")
     }
     function handleEdit(book)
     {
@@ -36,13 +43,14 @@ export default function ListBook() {
     //==================================================================================================
     return (
 
-        <div>
+        <div className='list_book'>
             <table>
                 <thead>
                     <tr>
                         <th>Book Id</th>
                         <th>Book Name</th>
                         <th>Book Price</th>
+                        <th>Book Operations</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,8 +62,15 @@ export default function ListBook() {
                                     <td>{book.bookId}</td>
                                     <td>{book.bookName}</td>
                                     <td>{book.bookPrice}</td>
-                                    <td><button onClick={()=>{ handleDelete(book.bookId) }}>Delete</button></td>
-                                    <td><button onClick = {()=>{ handleEdit(book) }}>Edit</button></td>
+                                    <td>
+                                        <button
+                                            className = 'btn btn-danger'
+                                            onClick={()=>{ handleDelete(book.bookId) }}>Delete</button>
+
+                                        <button
+                                            className = 'btn btn-primary'
+                                            onClick = {()=>{ handleEdit(book) }}>Edit</button>
+                                    </td>
                                 </tr>
                             )
 

@@ -5,8 +5,8 @@ let bookService = {
     baseUrl: 'http://localhost:8080',
 
     getAllBooks: function () {
-        
-        return axios.get(this.baseUrl + "/books")  //this returns a promise....
+
+          return axios.get(this.baseUrl + "/books")  //this returns a promise....
 
     },
 
