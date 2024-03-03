@@ -5,7 +5,7 @@ import { BookContext } from '../ContainerV2'
 export default function RegisterBook(props)
 {
     let {book, setBook, bookList, setBookList}  = useContext(BookContext)
-   
+    let [status, setStatus] = useState("Please enter the book details.....");
     //============================================================================================
     async function handleSubmit(e)
     {
@@ -14,14 +14,21 @@ export default function RegisterBook(props)
         let response = (await bookService.getBook(book.bookId))
         let foundBook = response.data;
 
-
         if (foundBook.bookId == 0)
+        {
             await bookService.postBook(book);
+            setStatus(`Book with id :  ${book.bookId}  posted succeffully....`);
+        }
         else
+        {
             await bookService.updateBook(book);
+            setStatus(`Updated book from { ${foundBook.bookId} , ${foundBook.bookName}, ${foundBook.bookPrice} }
+                        to  { ${book.bookId} , ${book.bookName}, ${book.bookPrice} } `);
+        }
 
         let books = (await bookService.getAllBooks()).data;
         setBookList(books);
+        setBook({bookId : '', bookName : '', bookPrice : ''})
         
     }
     //=======================================================================================================
@@ -66,6 +73,7 @@ export default function RegisterBook(props)
                 <p>Book Price : {book.bookPrice}</p>
 
             </form>
+            {status}
 
         </div>
     )
